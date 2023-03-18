@@ -10,11 +10,11 @@ os
 urllib.request
 ```
 ### How to Use ###
-To use this program, simply run the script and type a command into the input field at the bottom of the window. Press Enter to execute the command.
+- To use this program, simply run the script and type a command into the input field at the bottom of the window. Press Enter to execute the command.
 
-The program will display the command in the left listbox and the result of the command in the right listbox.
+* The program will display the command in the left listbox and the result of the command in the right listbox.
 
-If the command is not recognized or cannot be executed, an error message will be displayed in the right listbox.
++ If the command is not recognized or cannot be executed, an error message will be displayed in the right listbox.
 
 ### Features ###
 ```
