@@ -7,9 +7,11 @@ import urllib.request
 # Window Properties
 root = customtkinter.CTk()
 root.config(bg="black")
-root.title("epic")
+root.title("Epic")
+root.iconbitmap("images/icons.ico")
+root.resizable(width=False, height=False)
 #root.attributes("-alpha", 0.9)
-root.attributes("-toolwindow", True)
+#root.attributes("-toolwindow", True)
 
 
 #Fuctions Used In the Program
@@ -18,7 +20,7 @@ root.attributes("-toolwindow", True)
 # Function for Center Window
 def center_window():
     window_height = 550
-    window_width = 1000
+    window_width = 520
 
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
@@ -65,6 +67,7 @@ def main(event):
         except:
             return False
 
+
     insertInput(values.capitalize())
 
     
@@ -73,6 +76,9 @@ def main(event):
     elif "what" in values.lower():
         if connect() == True:
             insertResult("Here's A quick Google Search!")
+            import webbrowser
+
+            webbrowser.open(f"https://www.google.com/search?q={values}")
         else:
             insertResult("No Internet! Cannot perform Task!")
     else:
@@ -80,19 +86,20 @@ def main(event):
             os.startfile(values)
             
             insertResult("Loading... Plz Wait!")
-            
-            try:
-                if values == "cmd" or values == "powershell":
-                    pass
-                
-                else:
-                    os.system(values)
-                    
-                    insertResult("Loading... Plz Wait!")
-            except:
-                pass
+            name = True
         except:
             insertResult("Unknown Command")
+            name = False
+        try:
+            if name == False:
+                try:
+                    os.system(values)
+                except:
+                    insertResult("Sorry Cant help you with that!")
+            else:
+                pass
+        except:
+            pass
 
     
 
@@ -108,16 +115,16 @@ label = CTkLabel(root, text="", bg_color="black", text_color="white")
 label.pack()
 
 entry = CTkEntry(root, width=500, height=40, bg_color="#3F51B5", placeholder_text= "Input Program Name", placeholder_text_color="#FFFFFF", border_width=0, font=("Dosis", 18), fg_color="#3F51B5", text_color="black")
-entry.place(x=250, y=500)
+entry.place(x=10, y=500)
 entry.focus_force()
 
 
 listbox = CTkTextbox(root, width=250, height=400, border_width=0, border_color="gray",font=("bahnschrift", 13) ,activate_scrollbars=False, text_color="white", bg_color="#101010", fg_color="#101010")
-listbox.place(x=250, y=45)
+listbox.place(x=10, y=45)
 listbox.configure(state=DISABLED)
 
 listbox_results = CTkTextbox(root, width=250, height=400, border_width=0, border_color="gray",font=("bahnschrift", 13), activate_scrollbars=False, text_color="green", bg_color="#101010", fg_color="#101010")
-listbox_results.place(x=500, y=45)
+listbox_results.place(x=260, y=45)
 listbox_results.configure(state=DISABLED)
 
 # ------------------- #
