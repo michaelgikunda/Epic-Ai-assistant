@@ -73,7 +73,7 @@ def main(event):
     
     if "hi" in values.lower():
         insertResult("Hello there how can i help you, Today!")
-    elif "what" in values.lower():
+    elif "what" in values.lower() or "where" in values.lower() or "when" in values.lower() or "why" in values.lower() or "how" in values.lower() or "who" in values.lower():
         if connect() == True:
             insertResult("Here's A quick Google Search!")
             import webbrowser
