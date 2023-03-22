@@ -75,12 +75,25 @@ def connect(host='http://google.com'):
 
 # --------------------- #
 
+# Sample conversation
+conversation = {
+    "Hello": ["Hi there!", "Hello!", "Hey!"],
+    "How are you?": ["I'm doing well, thank you.", "I'm fine, thanks.", "Pretty good!"],
+    "What's your name?": ["My name is Chatbot.", "I'm Chatbot.", "You can call me Chatbot."],
+    "What can you do?": ["I can answer your questions and have a conversation with you.", "I can chat with you and help you find information."],
+    "Bye": ["Goodbye!", "See you later!", "Take care!"]
+}
+
+def converse(term):
+    insertResult(random.choice(conversation[term])) 
+
+
 
 # Function for looking for files and opening them
 
 def open_file(file_name):
-    folders = ['Downloads', 'Documents', 'Pictures', 'Music', 'Videos', 'Desktop']
-    extensions = ['', '.exe', '.bat', '.cmd', '.txt', '.png', '.jpg', '.ico', '.jpeg']  # Add more extensions as needed
+    folders = ['Downloads', 'Documents', 'Pictures', 'Music', 'Videos', 'Desktop', 'C://xampp//htdocs']
+    extensions = ['', '.exe', '.bat', '.cmd', '.txt', '.png', '.jpg', '.ico', '.jpeg', '.mp3', '.mp4']  # Add more extensions as needed
     for folder in folders:
         for ext in extensions:
             file_path = os.path.join(os.path.expanduser('~'), folder, file_name + ext)
@@ -106,10 +119,13 @@ def main(event):
 
      # Process input message using TextBlob
     blob = TextBlob(values)
+    user_blob = TextBlob(values.lower())
     # Get the subject of the input message
     subject = blob.subjectivity
     # Get the sentiment of the input message
     sentiment = blob.sentiment.polarity
+
+    
     # ---------------- #
 
     # Established to prevent some the search function to be activated when the sentiment is present
@@ -131,6 +147,25 @@ def main(event):
         responses = ["I'm sorry to hear that.", "That's too bad.", "I hope things get better for you."]
         insertResult(random.choice(responses))
         decision = True
+    
+    elif user_blob.words[0] in ["hello", "hi", "hey"]:
+        converse("Hello")
+
+    elif user_blob.words[0] in ["bye", "goodbye", "exit"]:
+        converse("Bye")
+        exit()
+        
+    elif user_blob.words[0] in "whats your name":
+        decision = False
+        converse("What's your name?")
+        
+
+    elif user_blob.words[0] in "how are you":
+        converse("How are you?")
+    
+    elif user_blob.words[0] in "what can you do":
+        decision = False
+        converse("What can you do?")
 
     elif "what" in values.lower() or "where" in values.lower() or "when" in values.lower() or "why" in values.lower() or "who" in values.lower():
         if connect() == True and decision == False:
@@ -145,7 +180,7 @@ def main(event):
 
         program = values.lower().replace("open ", "")
         open_file(program)
-
+    
     else:
         try:
             os.startfile(values)
