@@ -155,7 +155,7 @@ def main(event):
         converse("Bye")
         exit()
         
-    elif user_blob.words[0] in "whats your name":
+    elif user_blob.words[0] in "name":
         decision = False
         converse("What's your name?")
         
@@ -163,7 +163,7 @@ def main(event):
     elif user_blob.words[0] in "how are you":
         converse("How are you?")
     
-    elif user_blob.words[0] in "what can you do":
+    elif user_blob.words[0] in "can you do":
         decision = False
         converse("What can you do?")
 
